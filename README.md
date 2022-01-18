@@ -89,7 +89,7 @@ end;
 Пример функции возврата
 ____
 ```Pascal
-function TINPASPOS.Refund(pSumma: Currency; bankDocNum: string): boolean;
+function Refund(pSumma: Currency; bankDocNum: string): boolean;
 var
 query, response:ISAPacket;
 begin
