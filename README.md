@@ -9,7 +9,7 @@ public
   dclink : _DCLink;
   res:Integer;
 ```
-Пример функции подключения
+Пример функции Подключения
 ____
 ```Pascal
 function Connect: boolean;
@@ -43,7 +43,7 @@ begin
  Finalize(response);
 end;
 ```
-Функция отключения
+Функция Отключения
 ____
 ```Pascal
 function Disconnect: boolean;
@@ -52,7 +52,7 @@ begin
 end;
 ```
 
-Пример функции оплаты
+Пример функции Оплаты
 ____
 ```Pascal
 function Pay(pSumma: Currency; bankDocNum: string)
@@ -86,7 +86,7 @@ begin
 end;
 ```
 
-Пример функции возврата
+Пример функции Возврата
 ____
 ```Pascal
 function Refund(pSumma: Currency; bankDocNum: string): boolean;
@@ -116,5 +116,31 @@ Result:=false;
   end;
    Finalize(query);
    Finalize(response);
+end;
+```
+Пример функции Сверка итогов
+____
+```Pascal
+function CloseDay : boolean;
+var
+   query, response:ISAPacket;
+begin
+  Result := false;
+  try
+    response:=CoSAPacket.Create;
+    query:=CoSAPacket.Create;
+    Result := true;
+    query.OperationCode := 59;
+    res := dclink.Exchange(query, response, 180000);
+    if res <> 0 then
+    begin
+     ShowMessage(Format('%d %s, ', [res, dclink.ErrorDescription]));
+     Finalize(query);
+     Finalize(response);
+     exit;
+    end;
+  except
+    Result := false;
+  end;
 end;
 ```
